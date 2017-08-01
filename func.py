@@ -3,10 +3,23 @@ from bs4 import BeautifulSoup
 from urllib.request import unquote
 
 with open('set.txt', 'r') as file:
-	vk=vk_api.VkApi(token=json.loads(file.read())['token'])
+	s=json.loads(file.read())
+	vk=s['vk']
+	steam=s['steam']
+
+#VK
+vk=vk_api.VkApi(token=vk)
 vk.auth()
 
+send=lambda user, cont, img=[]: vk.method('messages.send', {'user_id':user, 'message':cont, 'attachment':','.join(img)})
+
+#SQLite
 auth=sqlite3.connect('1.db')
 db=auth.cursor()
 
-send=lambda user, cont, img=[]: vk.method('messages.send', {'user_id':user, 'message':cont, 'attachment':','.join(img)})
+'''
+#Steam
+from steam import WebAPI, SteamClient
+
+api=WebAPI(key=steam)
+'''
