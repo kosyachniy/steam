@@ -7,7 +7,7 @@ with open('set.txt', 'r') as file:
 	vk=s['vk']
 	steam=s['steam']
 
-names=lambda name: unquote(name[name.rfind('/'):])
+names=lambda name: unquote(name[name.rfind('/')+1:])
 
 #VK
 vk=vk_api.VkApi(token=vk)

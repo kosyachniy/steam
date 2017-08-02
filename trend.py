@@ -2,7 +2,6 @@ from func import *
 
 url='http://steamcommunity.com/market/search?q=#p'
 
-k=0
 su=0
 for s in range(10):
 	page=requests.get(url+str(s)+'_popular_desc').text
@@ -19,9 +18,11 @@ for s in range(10):
 		sale=float(span.find('span', class_='sale_price').contents[0][1:-4])
 		print(normal, sale)
 		print('--------------------')
-
-		k+=1
-		su+=sale
-		with db:
-			db.execute("INSERT INTO note VALUES (%d, '%s', %f, 0)" % (k, href, normal))
+		
+		if normal-sale<0.4:
+			su+=sale
+			with db:
+				db.execute("INSERT INTO note (name, price, count) VALUES ('%s', %f, 1)" % (href, normal))
 	time.sleep(1)
+
+send(140420515, 'Купить!\n∑ %f$' % round(su, 2))
