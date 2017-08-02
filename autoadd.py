@@ -25,20 +25,20 @@ while True:
 						price=i[2]
 						count=i[3]
 						if count>0 and (sale>=price+0.1 or sale<=price-0.5):
-							delta=str(sale-price)
+							delta=str(round(sale-price, 2))
 							if delta[0]!='-':
 								delta='+'+delta
 							su+=sale
 							db.execute("UPDATE note SET count=0 WHERE name=(?)", (href,))
-							send(140420515, 'Продать!\n%s$\n%f' % (delta, su))
+							send(140420515, 'Продать! %s\n%s\nΔ %s$\n∑ %f$' % (names(href), href, delta, round(su, 2)))
 						t=True
 						break
 					if t:
 						continue
 
-					db.execute("INSERT INTO note (name, price, count) VALUES (?, ?, 1)", (href, normal))
-					su-=sale
-					send(140420515, 'Купить!\n%s\n%f' % (href, su))
+					db.execute("INSERT INTO note (name, price, count) VALUES (?, ?, 1)", (href, round(normal, 2)))
+					su-=normal
+					send(140420515, 'Купить! %s\n%s\n∑ %f$' % (names(href), href, round(su, 2)))
 
 		time.sleep(5)
 	time.sleep(300)
