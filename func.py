@@ -14,8 +14,7 @@ vk.auth()
 send=lambda user, cont, img=[]: vk.method('messages.send', {'user_id':user, 'message':cont, 'attachment':','.join(img)})
 
 #SQLite
-auth=sqlite3.connect('1.db')
-db=auth.cursor()
+db=sqlite3.connect('1.db')
 
 '''
 #Steam

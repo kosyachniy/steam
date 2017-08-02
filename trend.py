@@ -22,8 +22,6 @@ for s in range(10):
 
 		k+=1
 		su+=sale
-		db.execute("INSERT INTO note VALUES (%d, '%s', '%f', 0)" % (k, href, sale))
+		with db:
+			db.execute("INSERT INTO note VALUES (%d, '%s', %f, 0)" % (k, href, sale))
 	time.sleep(1)
-
-auth.commit()
-auth.close()

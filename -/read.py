@@ -1,8 +1,5 @@
 from func import *
 
-db.execute("SELECT * FROM note")
-for i in db.fetchall():
-	print(i)
-
-auth.commit()
-auth.close()
+with db:
+	for i in db.execute("SELECT * FROM note"):
+		print(i)
