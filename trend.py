@@ -12,7 +12,7 @@ for s in range(10):
 	a=table.find_all('a', class_='market_listing_row_link')
 
 	for i in a:
-		href=unquote(i.get('href'))
+		href=i.get('href')
 		print(href)
 		span=i.find('span', class_='normal_price')
 		normal=float(span.find('span', class_='normal_price').contents[0][1:-4])
@@ -23,5 +23,5 @@ for s in range(10):
 		k+=1
 		su+=sale
 		with db:
-			db.execute("INSERT INTO note VALUES (%d, '%s', %f, 0)" % (k, href, sale))
+			db.execute("INSERT INTO note VALUES (%d, '%s', %f, 0)" % (k, href, normal))
 	time.sleep(1)

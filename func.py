@@ -1,6 +1,6 @@
 import requests, time, json, sqlite3, vk_api
 from bs4 import BeautifulSoup
-from urllib.request import unquote
+#from urllib.request import unquote
 
 with open('set.txt', 'r') as file:
 	s=json.loads(file.read())

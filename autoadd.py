@@ -4,7 +4,7 @@ su=0
 while True:
 	for s in range(10):
 		page=requests.get('http://steamcommunity.com/market/search?q=#p'+str(s)+'_popular_desc').text
-		soup=BeautifulSoup(page, 'lxml') #, 'html5lib'
+		soup=BeautifulSoup(page, 'lxml') #, 'html5lib')
 
 		try:
 			table=soup.find('div', id='searchResultsRows')
@@ -14,7 +14,7 @@ while True:
 			time.sleep(600)
 		else:
 			for i in a:
-				href=unquote(i.get('href'))
+				href=i.get('href')
 				span=i.find('span', class_='normal_price')
 				normal=float(span.find('span', class_='normal_price').contents[0][1:-4])
 				sale=float(span.find('span', class_='sale_price').contents[0][1:-4])
@@ -36,7 +36,7 @@ while True:
 					if t:
 						continue
 
-					db.execute("INSERT INTO note (name, price, count) VALUES ('%s', %f, 1)" % (href, sale))
+					db.execute("INSERT INTO note (name, price, count) VALUES (?, ?, 1)", (href, normal))
 					su-=sale
 					send(140420515, 'Купить!\n%s\n%f' % (href, su))
 
