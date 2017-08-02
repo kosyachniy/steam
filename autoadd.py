@@ -34,6 +34,7 @@ while True:
 						if delta[0]!='-':
 							delta='+'+delta
 						su+=sale
+						db.execute("UPDATE note SET count=0 WHERE name=(?)", (href,))
 						send(140420515, 'Продать!\n%s$\n%f' % (delta, su))
 		time.sleep(5)
 	time.sleep(300)
