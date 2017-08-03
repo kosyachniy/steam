@@ -25,4 +25,4 @@ for s in range(10):
 				db.execute("INSERT INTO note (name, price, count) VALUES ('%s', %f, 1)" % (href, normal))
 	time.sleep(1)
 
-send(140420515, 'Купить!\n∑ %f$' % round(su, 2))
+send(140420515, 'Купить!\n∑ -%f$' % round(su, 2))
