@@ -2,18 +2,44 @@ from func import *
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-driver = webdriver.Chrome('./chromedriver')
+driver=webdriver.Chrome('./chromedriver')
+
+#elem=driver.find_element_by_class_name('global_action_link')
+#elem.click()
+
+driver.get('https://steamcommunity.com/login/home/')
+with open('set.txt', 'r') as file:
+	s=json.loads(file.read())['steamlog']
+	driver.find_element_by_id('steamAccountName').send_keys(s[0])
+	driver.find_element_by_id('steamPassword').send_keys(s[1])
+	#driver.find_element_by_id('remember_login').click()
+	driver.find_element_by_id('SteamLogin').click()
+
+	#browser=webdriver.Chrome('./chromedriver')
+	#browser.get("mail.ru")
+
+time.sleep(30)
+#driver.find_element_by_class_name('auth_button leftbtn').click()
+
+#time.sleep(5)
+#driver.find_element_by_id('success_continue_btn').click()
+
 driver.get("http://steamcommunity.com/market/")
+driver.find_element_by_class_name('item_market_action_button_contents').click()
+time.sleep(10)
+driver.find_element_by_id('730_2_8695061953').click()
+driver.find_element_by_id('item_market_action_button item_market_action_button_green').click()
+time.sleep(10)
 
-elem=driver.find_element_by_class_name('global_action_link')
-elem.click()
-with open('db.txt', 'r') as file:
-	s=loads(file.read())['steamlog']
-	elem.send_keys(s[0])
-	elem.send_keys(Keys.TAB)
-	elem.send_keys(s[1])
-	elem.send_keys(Keys.RETURN)
+price=10
+driver.find_element_by_id('market_sell_currency_input').send_keys(price)
+driver.find_element_by_id('market_sell_dialog_accept_ssa').click()
+driver.find_element_by_id('market_sell_dialog_accept').click()
+driver.find_element_by_id('market_sell_dialog_ok').click()
 
+while True: pass
+
+'''
 su=0
 while True:
 	with db:
@@ -48,4 +74,5 @@ while True:
 
 			time.sleep(1)
 	time.sleep(300)
+'''
 driver.close()
